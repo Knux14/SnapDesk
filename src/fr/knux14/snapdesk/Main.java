@@ -5,6 +5,7 @@ import javax.swing.UIManager;
 public class Main {
 
 	public static void main(String args[]) {
+		Resources.load();
 		SaveManager.loadUsernames();
 		try {
 			// Set System L&F

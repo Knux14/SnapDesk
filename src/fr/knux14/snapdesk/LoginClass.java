@@ -28,7 +28,7 @@ public class LoginClass extends JFrame {
 	public LoginClass() {
 		setSize(400, 450);
 		setResizable(false);
-		setTitle(References.programFName + " - Connexion");
+		setTitle(Resources.programFName + " - Connexion");
 		setDefaultCloseOperation(3);
 		setLocationRelativeTo(null);
 		add(loginPanel = new MainLoginPanel(this));
@@ -106,6 +106,7 @@ class MainLoginPanel extends JPanel {
 		connect.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				connect.setEnabled(false);
 				String user = userList.getSelectedValue();
 				Snapchat sc = Snapchat.loginByToken(user, SaveManager.getUser(user));
 				if (sc != null && sc.authToken != null && !sc.authToken.isEmpty()) {

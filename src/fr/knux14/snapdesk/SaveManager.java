@@ -38,7 +38,6 @@ public class SaveManager {
 			while ((ligne = br.readLine()) != null) {
 				String username = ligne.substring(0, ligne.lastIndexOf(":"));
 				String token = ligne.substring(ligne.lastIndexOf(":") + 1, ligne.length());
-				System.out.println("User: " + username + " / " + token);
 				userList.put(username, token);
 			}
 		} catch (IOException e) {
