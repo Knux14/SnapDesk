@@ -103,7 +103,7 @@ public class Snapchat {
     private JSONObject loginObj_stories;
     private JSONArray loginObj_conversations;
 
-    private String username;
+    public String username;
     public String authToken;
     private long friendsTimestamp;
     private Friend[] friends;
