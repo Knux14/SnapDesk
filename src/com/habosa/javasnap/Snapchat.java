@@ -104,7 +104,7 @@ public class Snapchat {
     private JSONArray loginObj_conversations;
 
     private String username;
-    private String authToken;
+    public String authToken;
     private long friendsTimestamp;
     private Friend[] friends;
     private Story[] stories;
@@ -124,7 +124,7 @@ public class Snapchat {
 
             //Setup all local variables
             this.username = this.loginObj_updates.getString(USERNAME_KEY);
-            this.authToken = this.loginObj_updates.getString(AUTH_TOKEN_KEY);
+            this.setAuthToken(this.loginObj_updates.getString(AUTH_TOKEN_KEY));
             this.friendsTimestamp = this.loginObj_updates.getLong(Snapchat.ADDED_FRIENDS_TIMESTAMP_KEY);
         } catch (JSONException e) {
             //TODO Something is wrong with the loginObj_full
@@ -169,6 +169,44 @@ public class Snapchat {
         }
     }
 
+    /**
+     * @author Knux14
+     * Log in to Snapchat.
+     *
+     * @param pseudo
+     * @param token utilisé
+     * @return Snapchat object
+     */
+    public static Snapchat loginByToken(String username, String token) {
+    	Map<String, Object> params = new HashMap<String, Object>();
+
+        // Add username and password
+        params.put(USERNAME_KEY, username);
+
+        // Add timestamp and requestJson token made using auth token
+        Long timestamp = getTimestamp();
+        String reqToken = TokenLib.requestToken(token, timestamp);
+
+        params.put(TIMESTAMP_KEY, timestamp.toString());
+        params.put(REQ_TOKEN_KEY, reqToken);
+
+        try {
+            HttpResponse<JsonNode> resp = requestJson(ALL_UPDATES_PATH, params, null);
+            JSONObject obj = resp.getBody().getObject();
+            if(obj.has(UPDATES_RESPONSE_KEY) && obj.getJSONObject(UPDATES_RESPONSE_KEY).getBoolean(LOGGED_KEY)){
+                return new Snapchat(obj);
+            }
+            return null;
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            return null;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    
     /**
      * Refresh your snaps, friends, stories.
      *
@@ -302,7 +340,7 @@ public class Snapchat {
             params.put(USERNAME_KEY, username);
             Long timestamp = getTimestamp();
             params.put(TIMESTAMP_KEY, timestamp);
-            params.put(REQ_TOKEN_KEY, TokenLib.requestToken(authToken, timestamp));
+            params.put(REQ_TOKEN_KEY, TokenLib.requestToken(getAuthToken(), timestamp));
             params.put(ID_KEY, snap.getId());
             
             HttpResponse<InputStream> resp = requestBinary(BLOB_PATH, params, null);
@@ -399,7 +437,7 @@ public class Snapchat {
 
             // Add timestamp and requestJson token made using auth token
             Long timestamp = getTimestamp();
-            String reqToken = TokenLib.requestToken(this.authToken, timestamp);
+            String reqToken = TokenLib.requestToken(this.getAuthToken(), timestamp);
 
             //Add params
             params.put(USERNAME_KEY, this.username);
@@ -434,7 +472,7 @@ public class Snapchat {
 
             // Add timestamp and requestJson token made using auth token
             Long timestamp = getTimestamp();
-            String reqToken = TokenLib.requestToken(this.authToken, timestamp);
+            String reqToken = TokenLib.requestToken(this.getAuthToken(), timestamp);
 
             //Add params
             params.put(USERNAME_KEY, this.username);
@@ -533,7 +571,7 @@ public class Snapchat {
         try {
             // Prepare parameters
             Long timestamp = getTimestamp();
-            String requestToken = TokenLib.requestToken(authToken, timestamp);
+            String requestToken = TokenLib.requestToken(getAuthToken(), timestamp);
             int snapTime = Math.min(10, time);
 
             // Create comma-separated recipient string
@@ -602,7 +640,7 @@ public class Snapchat {
         try {
             // Prepare parameters
             Long timestamp = getTimestamp();
-            String requestToken = TokenLib.requestToken(authToken, timestamp);
+            String requestToken = TokenLib.requestToken(getAuthToken(), timestamp);
             int snapTime = Math.min(10, time);
 
             // Make parameter map
@@ -666,7 +704,7 @@ public class Snapchat {
 
         // Add timestamp and requestJson token made using auth token
         Long timestamp = getTimestamp();
-        String reqToken = TokenLib.requestToken(this.authToken, timestamp);
+        String reqToken = TokenLib.requestToken(this.getAuthToken(), timestamp);
 
         params.put(TIMESTAMP_KEY, timestamp.toString());
         params.put(REQ_TOKEN_KEY, reqToken);
@@ -700,7 +738,7 @@ public class Snapchat {
         try {
             // Prepare parameters
             Long timestamp = getTimestamp();
-            String requestToken = TokenLib.requestToken(authToken, timestamp);
+            String requestToken = TokenLib.requestToken(getAuthToken(), timestamp);
 
             int statusInt = 0;
             int replayedInt = 0;
@@ -767,7 +805,7 @@ public class Snapchat {
 
             // Create other params
             Long timestamp = getTimestamp();
-            String requestToken = TokenLib.requestToken(authToken, timestamp);
+            String requestToken = TokenLib.requestToken(getAuthToken(), timestamp);
             String mediaId = Snapchat.getNewMediaId(username);
 
             // Make parameter map
@@ -821,7 +859,7 @@ public class Snapchat {
 
             // Add timestamp and requestJson token made using auth token
             Long timestamp = getTimestamp();
-            String reqToken = TokenLib.requestToken(this.authToken, timestamp);
+            String reqToken = TokenLib.requestToken(this.getAuthToken(), timestamp);
 
             //Add params
             params.put(USERNAME_KEY, this.username);
@@ -856,7 +894,7 @@ public class Snapchat {
             Map<String, Object> params = new HashMap<String, Object>();
 
             Long timestamp = getTimestamp();
-            String reqToken = TokenLib.requestToken(this.authToken, timestamp);
+            String reqToken = TokenLib.requestToken(this.getAuthToken(), timestamp);
 
             //Add params
             params.put(USERNAME_KEY, this.username);
@@ -975,5 +1013,13 @@ public class Snapchat {
 
         return resp;
     }
+
+	public String getAuthToken() {
+		return authToken;
+	}
+
+	public void setAuthToken(String authToken) {
+		this.authToken = authToken;
+	}
 
 }
