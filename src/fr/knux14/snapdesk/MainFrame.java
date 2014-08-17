@@ -35,7 +35,7 @@ public class MainFrame extends JFrame {
 		
 		setLayout(new BorderLayout());
 		
-		topLabel = new JLabel("Connecté en tant que " + sc.username);
+		topLabel = new JLabel("ConnectÃ© en tant que " + sc.username);
 		topLabel.setHorizontalAlignment(JLabel.CENTER);
 		
 		insidePanel = new JPanel();
@@ -51,7 +51,7 @@ public class MainFrame extends JFrame {
 		g.ipady = 40;
 		insidePanel.add(takePicture, g);
 		
-		seeSnaps = new JButton("Mes snaps reçus");
+		seeSnaps = new JButton("Mes snaps reÃ§us");
 		g.fill = GridBagConstraints.HORIZONTAL;
 		g.gridx = 0;
 		g.gridy = 3;
@@ -83,7 +83,7 @@ public class MainFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				/**
-				 * @TODO Télécharger Snaps, histoire & tout
+				 * @TODO Tï¿½lï¿½charger Snaps, histoire & tout
 				 */
 			}
 		});
