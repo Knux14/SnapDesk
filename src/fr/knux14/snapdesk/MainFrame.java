@@ -44,49 +44,62 @@ public class MainFrame extends JFrame {
 		
 		takePicture = new JButton("Envoyer un snap");
 		g.fill = GridBagConstraints.HORIZONTAL;
-		g.gridx = 0;
-		g.gridy = 0;
-		g.weightx = 0.0;
 		g.gridwidth = 3;
+		g.gridx = 1;
+		g.gridy = 0;
 		g.ipady = 40;
 		insidePanel.add(takePicture, g);
 		
 		seeSnaps = new JButton("Mes snaps reçus");
 		g.fill = GridBagConstraints.HORIZONTAL;
-		g.gridx = 0;
-		g.gridy = 3;
+		g.gridx = 1;
+		g.gridy = 2;
 		g.ipady = 0;
 		g.weighty = 1.0;
 		insidePanel.add(seeSnaps, g);
 		
 		seeStory = new JButton("Amis et histoires");
 		g.fill = GridBagConstraints.HORIZONTAL;
-		g.gridx = 0;
-		g.gridy = 4;
+		g.gridx = 1;
+		g.gridy = 3;
 		insidePanel.add(seeStory, g);
 		
 		configuration = new JButton("Configuration");
 		g.fill = GridBagConstraints.HORIZONTAL;
-		g.gridx = 0;
-		g.gridy = 6;
+		g.gridx = 1;
+		g.gridy = 4;
 		g.weighty = 1.0;
 		g.anchor = GridBagConstraints.PAGE_END;
 		insidePanel.add(configuration, g);
 		
-		insidePanel.setBorder(BorderFactory.createEmptyBorder(20, 5, 20, 5));
 		
-		btmPanel = new JPanel();
-		btmPanel.setLayout(new BorderLayout());
+
 		snapLabel = new JLabel("0 nouveaux snaps", JLabel.LEFT);
-		storyLabel = new JLabel("0 nouvelles histoires", JLabel.RIGHT);
+		g.fill = GridBagConstraints.HORIZONTAL;
+		g.gridx = 0;
+		g.gridy = 5;
+		g.anchor = GridBagConstraints.LAST_LINE_START;
+		insidePanel.add(snapLabel, g);
+		
 		bt = new RefreshButton(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/**
-				 * @TODO T�l�charger Snaps, histoire & tout
-				 */
+				// @TODO
 			}
 		});
+		g.gridx = 1;
+		g.gridy = 6;
+		g.anchor = GridBagConstraints.PAGE_END;
+		insidePanel.add(bt, g);
+		
+		storyLabel = new JLabel("0 nouvelles histoires", JLabel.RIGHT);
+		g.gridx = 2;
+		g.gridy = 7;
+		g.anchor = GridBagConstraints.LAST_LINE_END;
+		insidePanel.add(storyLabel, g);		
+		
+//		btmPanel = new JPanel();
+		/*btmPanel.setLayout(new BorderLayout());
 		JPanel snapLabelPanel = new JPanel(new BorderLayout());
 		snapLabelPanel.add(snapLabel, BorderLayout.SOUTH);
 		btmPanel.add(snapLabelPanel, BorderLayout.WEST);
@@ -96,10 +109,10 @@ public class MainFrame extends JFrame {
 		JPanel storyLabelPanel = new JPanel(new BorderLayout());
 		storyLabelPanel.add(storyLabel, BorderLayout.SOUTH);
 		btmPanel.add(storyLabelPanel, BorderLayout.EAST);
-		
+		*/
 		add(topLabel, BorderLayout.NORTH);
 		add(insidePanel, BorderLayout.CENTER);
-		add(btmPanel, BorderLayout.SOUTH);
+		//add(btmPanel, BorderLayout.SOUTH);
 		
 	}
 	
