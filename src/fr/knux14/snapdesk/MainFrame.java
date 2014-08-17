@@ -7,11 +7,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
+import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import com.habosa.javasnap.Snapchat;
 
@@ -22,7 +23,9 @@ public class MainFrame extends JFrame {
 	public Snapchat scAccount;
 	private JPanel insidePanel, btmPanel;
 	private JLabel topLabel, snapLabel, storyLabel;
+	private RefreshButton rb;
 	private JButton takePicture, seeSnaps, seeStory, configuration;
+	
 	public MainFrame(Snapchat sc) {
 		setSize(300, 420); // Weed :D
 		setResizable(false);
@@ -75,20 +78,40 @@ public class MainFrame extends JFrame {
 		insidePanel.setBorder(BorderFactory.createEmptyBorder(20, 5, 20, 5));
 		
 		btmPanel = new JPanel();
-		btmPanel.setLayout(new BoxLayout(btmPanel, BoxLayout.LINE_AXIS));
+		//btmPanel.setLayout(new BoxLayout(btmPanel, BoxLayout.LINE_AXIS));
 		snapLabel = new JLabel("0 nouveaux snaps", JLabel.LEFT);
 		storyLabel = new JLabel("0 nouvelles histoires", JLabel.RIGHT);
-		btmPanel.add(snapLabel, BorderLayout.WEST);
-		btmPanel.add(new RefreshButton(new ActionListener() {
+		rb = new RefreshButton(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				/**
 				 * @TODO Télécharger Snaps, histoire & tout
 				 */
 			}
-		}), BorderLayout.CENTER);
-		btmPanel.add(storyLabel, BorderLayout.EAST);
-		
+		});
+		/*btmPanel.add(snapLabel, BorderLayout.WEST);
+		btmPanel.add(rb, BorderLayout.CENTER);
+		btmPanel.add(storyLabel, BorderLayout.EAST);*/
+		GroupLayout layout = new GroupLayout(btmPanel);
+		btmPanel.setLayout(layout);
+		layout.setAutoCreateContainerGaps(false);
+		layout.setAutoCreateGaps(true);
+		layout.setHorizontalGroup(layout.createSequentialGroup()
+			    .addComponent(snapLabel)
+			    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+			        .addComponent(rb)
+			    )
+			    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+			        .addComponent(storyLabel)
+			    )
+			);
+
+			layout.setVerticalGroup(layout.createSequentialGroup()
+			    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+			        .addComponent(snapLabel)
+			        .addComponent(rb)
+			        .addComponent(storyLabel))
+			);
 		add(topLabel, BorderLayout.NORTH);
 		add(insidePanel, BorderLayout.CENTER);
 		add(btmPanel, BorderLayout.SOUTH);
