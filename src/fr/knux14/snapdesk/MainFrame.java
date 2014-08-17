@@ -7,12 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 import com.habosa.javasnap.Snapchat;
 
@@ -23,8 +21,8 @@ public class MainFrame extends JFrame {
 	public Snapchat scAccount;
 	private JPanel insidePanel, btmPanel;
 	private JLabel topLabel, snapLabel, storyLabel;
-	private RefreshButton rb;
 	private JButton takePicture, seeSnaps, seeStory, configuration;
+	private RefreshButton bt;
 	
 	public MainFrame(Snapchat sc) {
 		setSize(300, 420); // Weed :D
@@ -78,10 +76,10 @@ public class MainFrame extends JFrame {
 		insidePanel.setBorder(BorderFactory.createEmptyBorder(20, 5, 20, 5));
 		
 		btmPanel = new JPanel();
-		//btmPanel.setLayout(new BoxLayout(btmPanel, BoxLayout.LINE_AXIS));
+		btmPanel.setLayout(new BorderLayout());
 		snapLabel = new JLabel("0 nouveaux snaps", JLabel.LEFT);
 		storyLabel = new JLabel("0 nouvelles histoires", JLabel.RIGHT);
-		rb = new RefreshButton(new ActionListener() {
+		bt = new RefreshButton(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				/**
@@ -89,29 +87,16 @@ public class MainFrame extends JFrame {
 				 */
 			}
 		});
-		/*btmPanel.add(snapLabel, BorderLayout.WEST);
-		btmPanel.add(rb, BorderLayout.CENTER);
-		btmPanel.add(storyLabel, BorderLayout.EAST);*/
-		GroupLayout layout = new GroupLayout(btmPanel);
-		btmPanel.setLayout(layout);
-		layout.setAutoCreateContainerGaps(false);
-		layout.setAutoCreateGaps(true);
-		layout.setHorizontalGroup(layout.createSequentialGroup()
-			    .addComponent(snapLabel)
-			    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
-			        .addComponent(rb)
-			    )
-			    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-			        .addComponent(storyLabel)
-			    )
-			);
-
-			layout.setVerticalGroup(layout.createSequentialGroup()
-			    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-			        .addComponent(snapLabel)
-			        .addComponent(rb)
-			        .addComponent(storyLabel))
-			);
+		JPanel snapLabelPanel = new JPanel(new BorderLayout());
+		snapLabelPanel.add(snapLabel, BorderLayout.SOUTH);
+		btmPanel.add(snapLabelPanel, BorderLayout.WEST);
+		JPanel lolpan = new JPanel();
+		lolpan.add(bt);
+		btmPanel.add(lolpan);
+		JPanel storyLabelPanel = new JPanel(new BorderLayout());
+		storyLabelPanel.add(storyLabel, BorderLayout.SOUTH);
+		btmPanel.add(storyLabelPanel, BorderLayout.EAST);
+		
 		add(topLabel, BorderLayout.NORTH);
 		add(insidePanel, BorderLayout.CENTER);
 		add(btmPanel, BorderLayout.SOUTH);
