@@ -25,23 +25,25 @@ public class MainFrame extends JFrame {
 	private ThreadAutoUpdate autoUpdate;
 	public JPanel home;
 	private JPanel topPanel, insidePanel;
-	private PanelFriends panelFriends;
+	public PanelFriends panelFriends;
 	private JLabel topLabel, snapLabel, storyLabel;
-	private JButton takePicture, seeSnaps, seeStory, configuration, refreshButton;
+	private JButton takePicture, seeSnaps, seeStory, configuration,
+			refreshButton;
 
 	public MainFrame(Snapchat sc) {
 		instance = this;
-		setSize(420, 420); // Weed :D
+		setSize(350, 420); // Weed :D
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setTitle(Resources.programFName);
 		setDefaultCloseOperation(3);
 
 		this.scAccount = sc;
-		
-		// MainMenu Panel
+
+		// Main Panels
 		home = new JPanel(new BorderLayout());
-		
+		panelFriends = new PanelFriends(MainFrame.this);
+
 		// Sub-panels for Main Menu
 		topPanel = new JPanel(); // => "Connected as ... "
 		insidePanel = new JPanel(); // Everything under topPanel
@@ -112,12 +114,10 @@ public class MainFrame extends JFrame {
 		g.weightx = 0.5;
 		g.anchor = GridBagConstraints.LAST_LINE_END;
 		insidePanel.add(storyLabel, g);
-		
+
 		seeStory.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (panelFriends == null)
-					panelFriends = new PanelFriends(MainFrame.this);
 				MainFrame.this.add(panelFriends);
 				MainFrame.this.remove(home);
 				panelFriends.checkButtons();
@@ -125,7 +125,7 @@ public class MainFrame extends JFrame {
 				MainFrame.this.repaint();
 			}
 		});
-		
+
 		refreshButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -134,7 +134,7 @@ public class MainFrame extends JFrame {
 				}
 			}
 		});
-		
+
 		home.add(topPanel, BorderLayout.NORTH);
 		home.add(insidePanel, BorderLayout.CENTER);
 
@@ -167,12 +167,14 @@ public class MainFrame extends JFrame {
 		updateLabels();
 
 		// Update friends
-		if (panelFriends != null)
-			panelFriends.updateFriendPanelList();
+		panelFriends.updateFriendPanelList();
 
 		// Update received snaps and messages
 
 		// Update friends story
+		for (FriendPanel f : panelFriends.friends) {
+			f.updateStories();
+		}
 	}
 
 }

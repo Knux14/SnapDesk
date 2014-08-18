@@ -3,6 +3,8 @@ package fr.knux14.snapdesk;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -14,12 +16,13 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import com.habosa.javasnap.Friend;
+import com.habosa.javasnap.Story;
 
 public class PanelFriends extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private MainFrame mf;
-	private FriendPanel[] friends;
+	public FriendPanel[] friends;
 	private JList<FriendPanel> friendList;
 	private int lastSelected = -1;
 	private JButton back, talk, story, options;
@@ -44,8 +47,27 @@ public class PanelFriends extends JPanel {
 			}
 		});
 		friendList.setCellRenderer(new FriendPanel());
+		setLayout(new BorderLayout());
 		
-		back = new JButton("Retour");
+		back = new JButton("Retour");		
+		talk = new JButton("Chat");
+		story = new JButton("Story");
+		options = new JButton("Modifier");
+		JScrollPane jsc = new JScrollPane(friendList);
+		
+		JPanel topPanel = new JPanel(new BorderLayout()), southPanel = new JPanel();
+		
+		jsc.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+		topPanel.add(back, BorderLayout.CENTER);
+		southPanel.add(talk);
+		southPanel.add(story);
+		southPanel.add(options);
+		
+		add(topPanel, BorderLayout.NORTH);
+		add(jsc, BorderLayout.CENTER);
+		add(southPanel, BorderLayout.SOUTH);
+
 		back.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -56,24 +78,13 @@ public class PanelFriends extends JPanel {
 			}
 		});
 		
-		talk = new JButton("Messages");
-		story = new JButton("Story");
-		options = new JButton("Modifier");
-		
-		setLayout(new BorderLayout());
-		JPanel topPanel = new JPanel(new BorderLayout()), southPanel = new JPanel();
-		topPanel.add(back, BorderLayout.CENTER);
-
-		JScrollPane jsc = new JScrollPane(friendList);
-		jsc.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		
-		southPanel.add(talk);
-		southPanel.add(story);
-		southPanel.add(options);
-		
-		add(topPanel, BorderLayout.NORTH);
-		add(jsc, BorderLayout.CENTER);
-		add(southPanel, BorderLayout.SOUTH);
+		story.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				ArrayList<Story> stories = friendList.getSelectedValue().stories;
+				new Downloader(stories.toArray(new Story[stories.size()]));
+			}
+		});
 		
 		updateFriendPanelList();
 		checkButtons();

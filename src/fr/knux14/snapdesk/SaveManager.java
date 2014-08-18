@@ -14,7 +14,7 @@ public class SaveManager {
 	public static HashMap<String, String> userList = new HashMap<>();
 
 	// Where will be saved the username and the tokens
-	private static final File usernameFile = new File("lastlogin");
+	private static final File usernameFile = new File(Resources.getHomeDir(), "lastlogin");
 	private static boolean hasRead = false;
 	
 	public static String getUser(String username) {

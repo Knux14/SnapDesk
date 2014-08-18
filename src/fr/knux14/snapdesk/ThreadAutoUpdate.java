@@ -18,10 +18,10 @@ public class ThreadAutoUpdate extends Thread {
 	public void run() {
 		while (mf.update) {
 			try {
-				sleep(TimeUnit.MINUTES.toMillis(1));
 				if (scAccount.refresh()) {
 					mf.refresh();
 				}
+				sleep(TimeUnit.MINUTES.toMillis(1));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

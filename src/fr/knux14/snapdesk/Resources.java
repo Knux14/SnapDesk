@@ -2,6 +2,7 @@ package fr.knux14.snapdesk;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -26,6 +27,13 @@ public class Resources {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static File getHomeDir() {
+		File userHome = new File(System.getProperty("user.home"));
+		File home = new File(userHome, "SnapDesk");
+		if(!home.exists()) home.mkdirs();
+		return home;
 	}
 	
 }

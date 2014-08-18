@@ -26,7 +26,6 @@ public class FriendPanel extends JPanel implements ListCellRenderer<FriendPanel>
 	/**
 	 * Panel that displays in the friend list
 	 * @param f friend
-	 * @params Colors => Selected bg & fg, Unselected bg & fg
 	 */
 	public FriendPanel(Friend f) {
 		this.friend = f;
@@ -53,12 +52,17 @@ public class FriendPanel extends JPanel implements ListCellRenderer<FriendPanel>
 		}
 		g.setColor(Color.black);
 		g.setFont(g.getFont().deriveFont(15f));
-		g.drawString(friend.getDisplayName().isEmpty() ? friend.getUsername() : friend.getDisplayName(), 5, 12);
+		g.drawString(friend.getDisplayName().isEmpty() ? friend.getUsername() : friend.getDisplayName(), 5, 22);
 		g.setFont(g.getFont().deriveFont(10f));
-		g.drawString(stories.size() + " histoires", 9, 34);
+		g.drawString(stories.size() + " histoires", 9, 44);
 		
 		g.setColor(Color.gray);
-		g.drawString(friend.getUsername(), 9, 24);
+		g.drawString(friend.getUsername(), 9, 34);
+		
+		if (!storySeen){
+			g.setColor(Color.red);
+			g.drawString("Nouvelle histoire !", 9, 54);
+		}
 	}
 
 	/**
