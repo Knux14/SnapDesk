@@ -15,6 +15,11 @@ public class RefreshButton extends JPanel implements MouseListener {
 	private boolean loading;
 	private Dimension size = new Dimension(32, 32);
 	
+	/**
+	 * Nothin' too fancy too, just a JPanel which display a picture and has an ActionListener.
+	 * Will be rewritten (Not work correctly)
+	 * @param act
+	 */
 	public RefreshButton(ActionListener act){
 		this.act = act;
 		this.loading = false;

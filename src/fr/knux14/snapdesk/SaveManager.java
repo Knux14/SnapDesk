@@ -12,6 +12,8 @@ import java.util.Map.Entry;
 public class SaveManager {
 
 	public static HashMap<String, String> userList = new HashMap<>();
+
+	// Where will be saved the username and the tokens
 	private static final File usernameFile = new File("lastlogin");
 	private static boolean hasRead = false;
 	

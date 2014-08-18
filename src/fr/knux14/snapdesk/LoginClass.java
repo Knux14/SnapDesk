@@ -23,15 +23,16 @@ public class LoginClass extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	private MainLoginPanel loginPanel;
-
+	/**
+	 * First class to show up, allow user to choose between multiples accounts
+	 */
 	public LoginClass() {
 		setSize(400, 450);
 		setResizable(false);
 		setTitle(Resources.programFName + " - Connexion");
 		setDefaultCloseOperation(3);
 		setLocationRelativeTo(null);
-		add(loginPanel = new MainLoginPanel(this));
+		add(new MainLoginPanel(this));
 	}
 
 }
@@ -47,7 +48,7 @@ class MainLoginPanel extends JPanel {
 	public MainLoginPanel(final JFrame loginFrame) {
 		this.loginFrame = loginFrame;
 		userList = new JList<>();
-		connect = new JButton("Connection");
+		connect = new JButton("Connexion");
 		add = new JButton("Ajouter");
 		rem = new JButton("Supprimer");
 		setLayout(new BorderLayout());
@@ -124,6 +125,9 @@ class MainLoginPanel extends JPanel {
 		rem.setEnabled(false);
 	}
 
+	/**
+	 * Refresh the users list based on the file
+	 */
 	public void updateList() {
 		Object[] userListObject = SaveManager.userList.keySet().toArray();
 		String[] userList = Arrays.copyOf(userListObject,

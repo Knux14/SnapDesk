@@ -27,11 +27,17 @@ public class AddAccountDialog extends JDialog implements ActionListener {
 	private String textRetry = "<html>Mauvais mot de passe, token erroné, ou erreur de connexion.<br />Merci de vous reconnecter.</html>";
 	private MainLoginPanel panel;
 
+	/**
+	 * Allow to use it so that when user's token has changed, he can reconnect
+	 * @param pan MainLoginPanel
+	 * @param lastUser Username
+	 * @param action Choose between connection and retry
+	 */
 	public AddAccountDialog(MainLoginPanel pan, String lastUser, int action) {
 		this(pan, action);
 		usernameField.setText(lastUser);
 	}
-
+	
 	public AddAccountDialog(MainLoginPanel pan, int action) {
 		setSize(300, 200);
 		setTitle("Connexion à Snapchat");
@@ -75,10 +81,11 @@ public class AddAccountDialog extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		connectBt.setEnabled(false);
 		if (action == 1) {
+			// Action 1: Adding user
 			Snapchat sc = Snapchat.login(usernameField.getText(), passField.getText());
 			if (sc != null && sc.authToken != null && !sc.authToken.isEmpty()) {
 				/**
-				 * @TODO Demander si overwriter // Flemme
+				 * @TODO Ask to overwrite or not
 				 */
 				SaveManager.addUser(usernameField.getText(), sc.getAuthToken(), true);
 				SaveManager.saveUsernames();
@@ -93,6 +100,7 @@ public class AddAccountDialog extends JDialog implements ActionListener {
 				connectBt.setEnabled(true);
 			}
 		} else if(action == 2) {
+			// Action 2: Revalidating a token
 			Snapchat sc = Snapchat.login(usernameField.getText(), passField.getText());
 			if (sc != null && sc.authToken != null && !sc.authToken.isEmpty()) {
 				SaveManager.addUser(usernameField.getText(), sc.getAuthToken(), true);

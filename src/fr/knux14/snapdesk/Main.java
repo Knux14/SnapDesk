@@ -4,6 +4,10 @@ import javax.swing.UIManager;
 
 public class Main {
 
+	/**
+	 * Nothin' too fancy, just setting LnF & starting the frame
+	 * @param args
+	 */
 	public static void main(String args[]) {
 		Resources.load();
 		SaveManager.loadUsernames();

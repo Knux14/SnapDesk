@@ -7,6 +7,10 @@ import javax.imageio.ImageIO;
 
 public class Resources {
 
+	/**
+	 * Kinda Pahimar's Reference class
+	 */
+	
 	public static final String programName  = "jSnapDesk",
 							   programVers  = "InDev 0.1",
 							   programFName = programName + " " + programVers;
