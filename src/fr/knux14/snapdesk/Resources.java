@@ -1,5 +1,6 @@
 package fr.knux14.snapdesk;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -8,7 +9,7 @@ import javax.imageio.ImageIO;
 public class Resources {
 
 	/**
-	 * Kinda Pahimar's Reference class
+	 * Kind of Pahimar's Reference class
 	 */
 	
 	public static final String programName  = "jSnapDesk",
@@ -16,6 +17,7 @@ public class Resources {
 							   programFName = programName + " " + programVers;
 	
 	public static BufferedImage loading, refresh;
+	public static Color selectedColorBg, selectedColorFg, unselectedColorBg, unselectedColorFg;
 	
 	public static void load() {
 		try {

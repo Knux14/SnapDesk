@@ -20,7 +20,7 @@ public class ThreadAutoUpdate extends Thread {
 			try {
 				sleep(TimeUnit.MINUTES.toMillis(1));
 				if (scAccount.refresh()) {
-					mf.updateLabels();
+					mf.refresh();
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();

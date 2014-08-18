@@ -21,17 +21,29 @@ public class PanelFriends extends JPanel {
 	private MainFrame mf;
 	private FriendPanel[] friends;
 	private JList<FriendPanel> friendList;
+	private int lastSelected = -1;
 	private JButton back, talk, story, options;
 	
 	public PanelFriends(final MainFrame mf) {
 		this.mf = mf;
 		friendList = new JList<>();
+		Resources.selectedColorBg = friendList.getSelectionBackground();
+		Resources.selectedColorFg = friendList.getSelectionForeground();
+		Resources.unselectedColorBg = friendList.getBackground();
+		Resources.unselectedColorFg = friendList.getForeground();
 		friendList.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				checkButtons();
+				if (lastSelected != -1) {
+					friends[lastSelected].isSelected = false;
+					friends[lastSelected].repaint();
+				}
+				friendList.getSelectedValue().isSelected = true;
+				lastSelected = friendList.getSelectedIndex();
 			}
 		});
+		friendList.setCellRenderer(new FriendPanel());
 		
 		back = new JButton("Retour");
 		back.addActionListener(new ActionListener() {
