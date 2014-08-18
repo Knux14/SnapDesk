@@ -3,7 +3,6 @@ package fr.knux14.snapdesk;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -49,10 +48,10 @@ public class PanelFriends extends JPanel {
 		friendList.setCellRenderer(new FriendPanel());
 		setLayout(new BorderLayout());
 		
-		back = new JButton("Retour");		
-		talk = new JButton("Chat");
-		story = new JButton("Story");
-		options = new JButton("Modifier");
+		back = new JButton(Resources.text.getString("Main.back"));		
+		talk = new JButton(Resources.text.getString("Friends.talk"));
+		story = new JButton(Resources.text.getString("Friends.story"));
+		options = new JButton(Resources.text.getString("Friends.modify"));
 		JScrollPane jsc = new JScrollPane(friendList);
 		
 		JPanel topPanel = new JPanel(new BorderLayout()), southPanel = new JPanel();

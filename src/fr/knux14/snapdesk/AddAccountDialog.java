@@ -23,8 +23,8 @@ public class AddAccountDialog extends JDialog implements ActionListener {
 	private JLabel message;
 	private JTextField usernameField, passField;
 	private JButton connectBt;
-	private String textNormal = "Connectez vous à Snapchat";
-	private String textRetry = "<html>Mauvais mot de passe, token erroné, ou erreur de connexion.<br />Merci de vous reconnecter.</html>";
+	private String textNormal = Resources.text.getString("AddAccount.connect");
+	private String textRetry = Resources.text.getString("AddAccount.connect2");
 	private MainLoginPanel panel;
 
 	/**
@@ -39,15 +39,15 @@ public class AddAccountDialog extends JDialog implements ActionListener {
 	}
 	
 	public AddAccountDialog(MainLoginPanel pan, int action) {
-		setSize(300, 200);
-		setTitle("Connexion à Snapchat");
+		setSize(400, 150);
+		setTitle(Resources.text.getString("AddAccount.title"));
 
 		panel = pan;
 		this.action = action;
 
 		usernameField = new JTextField();
 		passField = new JPasswordField();
-		connectBt = new JButton("Connexion");
+		connectBt = new JButton(Resources.text.getString("AddAccount.connectBt"));
 		connectBt.addActionListener(this);
 
 		JPanel insidePanel = new JPanel(new BorderLayout());
@@ -58,8 +58,8 @@ public class AddAccountDialog extends JDialog implements ActionListener {
 		GridLayout gl = new GridLayout(0, 2);
 		gl.setVgap(5);
 		fields.setLayout(gl);
-		JLabel userLab = new JLabel("Pseudo: ");
-		JLabel passLab = new JLabel("MDP: ");
+		JLabel userLab = new JLabel(Resources.text.getString("AddAccount.username") + ": ");
+		JLabel passLab = new JLabel(Resources.text.getString("AddAccount.password") + ": ");
 		fields.add(userLab);
 		fields.add(usernameField);
 		fields.add(passLab);
@@ -72,7 +72,7 @@ public class AddAccountDialog extends JDialog implements ActionListener {
 
 		add(insidePanel);
 		setResizable(false);
-		pack();
+		//pack();
 		validate();
 		setLocationRelativeTo(null);
 	}

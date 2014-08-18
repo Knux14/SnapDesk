@@ -36,7 +36,7 @@ public class Downloader extends JFrame {
 	public Downloader(Story[] stories) {
         dlListStory = Story.filterDownloadable(stories);
         totalFiles = dlListStory.length;
-		label = new JLabel("Téléchargement des images de " + dlListStory[0].getSender() + "... Veuillez patienter.", JLabel.LEFT);
+		label = new JLabel(Resources.text.getString("Downloader.text1") + " " + dlListStory[0].getSender() + Resources.text.getString("Downloader.text2"), JLabel.LEFT);
 		setup();
 		downloadedFiles = new File[totalFiles];
 		setVisible(true);
@@ -47,7 +47,7 @@ public class Downloader extends JFrame {
 	public Downloader(Snap[] snaps) {
         dlListSnap = Snap.filterDownloadable(snaps);
         totalFiles = dlListSnap.length;
-		label = new JLabel("Téléchargement des images de " + dlListSnap[0].getSender() + "... Veuillez patienter.", JLabel.LEFT);
+		label = new JLabel(Resources.text.getString("Downloader.text1") + " " + dlListSnap[0].getSender() + Resources.text.getString("Downloader.text2"), JLabel.LEFT);
 		setup();
 	}
 	

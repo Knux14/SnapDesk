@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
@@ -19,9 +21,12 @@ public class Resources {
 	
 	public static BufferedImage loading, refresh;
 	public static Color selectedColorBg, selectedColorFg, unselectedColorBg, unselectedColorFg;
+	public static ResourceBundle text;
 	
 	public static void load() {
 		try {
+			Locale langue = new Locale("en", "US");
+			text = ResourceBundle.getBundle("TranslateDesk", langue);
 			loading = ImageIO.read(Resources.class.getResourceAsStream("res/loading.gif"));
 			refresh = ImageIO.read(Resources.class.getResourceAsStream("res/refresh.png"));
 		} catch (IOException e) {

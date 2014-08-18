@@ -29,7 +29,7 @@ public class LoginClass extends JFrame {
 	public LoginClass() {
 		setSize(400, 450);
 		setResizable(false);
-		setTitle(Resources.programFName + " - Connexion");
+		setTitle(Resources.programFName + " - " + Resources.text.getString("Login.title.connect"));
 		setDefaultCloseOperation(3);
 		setLocationRelativeTo(null);
 		add(new MainLoginPanel(this));
@@ -48,9 +48,9 @@ class MainLoginPanel extends JPanel {
 	public MainLoginPanel(final JFrame loginFrame) {
 		this.loginFrame = loginFrame;
 		userList = new JList<>();
-		connect = new JButton("Connexion");
-		add = new JButton("Ajouter");
-		rem = new JButton("Supprimer");
+		connect = new JButton(Resources.text.getString("Login.button.connect"));
+		add = new JButton(Resources.text.getString("Login.button.add"));
+		rem = new JButton(Resources.text.getString("Login.button.remove"));
 		setLayout(new BorderLayout());
 
 		JPanel panelBoutons = new JPanel();
@@ -58,7 +58,7 @@ class MainLoginPanel extends JPanel {
 		panelBoutons.add(connect);
 		panelBoutons.add(rem);
 
-		add(new JLabel("Choissez un utilisateur pour se connecter"),
+		add(new JLabel(Resources.text.getString("Login.label.chooseUser")),
 				BorderLayout.NORTH);
 		add(new JScrollPane(userList), BorderLayout.CENTER);
 		add(panelBoutons, BorderLayout.SOUTH);
@@ -92,10 +92,10 @@ class MainLoginPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int n = JOptionPane.showConfirmDialog(
 						MainLoginPanel.this.loginFrame,
-						"Vous allez supprimer le compte "
+						Resources.text.getString("Login.remove.confirm1") + " "
 								+ userList.getSelectedValue()
-								+ " de SnapDesk.\n tes vous sur ?",
-						"Suppression de compte", JOptionPane.YES_NO_OPTION);
+								+ " " + Resources.text.getString("Login.remove.confirm2"),
+						Resources.text.getString("Login.remove.title"), JOptionPane.YES_NO_OPTION);
 				if (n == JOptionPane.YES_OPTION) {
 					SaveManager.userList.remove(userList.getSelectedValue());
 					SaveManager.saveUsernames();

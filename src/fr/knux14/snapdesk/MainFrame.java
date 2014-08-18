@@ -48,13 +48,13 @@ public class MainFrame extends JFrame {
 		topPanel = new JPanel(); // => "Connected as ... "
 		insidePanel = new JPanel(); // Everything under topPanel
 
-		topLabel = new JLabel("Connecté en tant que " + sc.username);
-		takePicture = new JButton("Envoyer un snap");
-		seeSnaps = new JButton("Mes snaps reçus");
-		seeStory = new JButton("Amis et histoires");
-		configuration = new JButton("Configuration");
+		topLabel = new JLabel(Resources.text.getString("Main.connectedAs") + " " + sc.username);
+		takePicture = new JButton(Resources.text.getString("Main.takeNew"));
+		seeSnaps = new JButton(Resources.text.getString("Main.receivedSnaps"));
+		seeStory = new JButton(Resources.text.getString("Main.friendsAndStory"));
+		configuration = new JButton(Resources.text.getString("Main.configuration"));
 		snapLabel = new JLabel("0 nouveaux snaps", JLabel.LEFT);
-		refreshButton = new JButton("Actualiser");
+		refreshButton = new JButton(Resources.text.getString("Main.refresh"));
 		storyLabel = new JLabel("0 nouvelles histoires", JLabel.RIGHT);
 
 		topPanel.add(topLabel);
@@ -150,13 +150,13 @@ public class MainFrame extends JFrame {
 	// panel
 	public void updateLabels() {
 		int x = Snap.filterDownloadable(scAccount.getSnaps()).length;
-		snapLabel.setText(x + " nouveaux snaps");
+		snapLabel.setText(x + " " + Resources.text.getString("Main.newSnaps"));
 		x = 0;
 		for (Story s : scAccount.getStories()) {
 			if (!s.isViewed())
 				x++;
 		}
-		storyLabel.setText(x + " nouvelles histoires");
+		storyLabel.setText(x + " " + Resources.text.getString("Main.newStories"));
 	}
 
 	/**

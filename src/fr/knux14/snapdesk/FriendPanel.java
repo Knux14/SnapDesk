@@ -54,14 +54,14 @@ public class FriendPanel extends JPanel implements ListCellRenderer<FriendPanel>
 		g.setFont(g.getFont().deriveFont(15f));
 		g.drawString(friend.getDisplayName().isEmpty() ? friend.getUsername() : friend.getDisplayName(), 5, 22);
 		g.setFont(g.getFont().deriveFont(10f));
-		g.drawString(stories.size() + " histoires", 9, 44);
+		g.drawString(stories.size() + " " + Resources.text.getString("Friends.story"), 9, 44);
 		
 		g.setColor(Color.gray);
 		g.drawString(friend.getUsername(), 9, 34);
 		
 		if (!storySeen){
 			g.setColor(Color.red);
-			g.drawString("Nouvelle histoire !", 9, 54);
+			g.drawString(Resources.text.getString("Friends.newStory"), 9, 54);
 		}
 	}
 
