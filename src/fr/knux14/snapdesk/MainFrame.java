@@ -26,6 +26,7 @@ public class MainFrame extends JFrame {
 	public JPanel home;
 	private JPanel topPanel, insidePanel;
 	public PanelFriends panelFriends;
+	public PanelSnaps panelSnaps;
 	private JLabel topLabel, snapLabel, storyLabel;
 	private JButton takePicture, seeSnaps, seeStory, configuration,
 			refreshButton;
@@ -42,8 +43,9 @@ public class MainFrame extends JFrame {
 
 		// Main Panels
 		home = new JPanel(new BorderLayout());
-		panelFriends = new PanelFriends(MainFrame.this);
-
+		panelFriends = new PanelFriends(this);
+		panelSnaps = new PanelSnaps(this);
+		
 		// Sub-panels for Main Menu
 		topPanel = new JPanel(); // => "Connected as ... "
 		insidePanel = new JPanel(); // Everything under topPanel
@@ -125,6 +127,17 @@ public class MainFrame extends JFrame {
 				MainFrame.this.repaint();
 			}
 		});
+		
+		seeSnaps.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				MainFrame.this.add(panelSnaps);
+				MainFrame.this.remove(home);
+				panelSnaps.checkButtons();
+				MainFrame.this.revalidate();
+				MainFrame.this.repaint();
+			}
+		});
 
 		refreshButton.addActionListener(new ActionListener() {
 			@Override
@@ -175,6 +188,11 @@ public class MainFrame extends JFrame {
 		for (FriendPanel f : panelFriends.friends) {
 			f.updateStories();
 		}
+		
+		// Show the popup
+		int x;
+		if ((x = Snap.filterDownloadable(scAccount.getSnaps()).length) != 0) {
+			System.out.println(x);
+		}
 	}
-
 }

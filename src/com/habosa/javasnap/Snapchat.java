@@ -6,6 +6,7 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequest;
 import com.mashape.unirest.request.body.MultipartBody;
+
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -692,6 +693,21 @@ public class Snapchat {
         }
     }
 
+
+	/**
+	 * @author Knux14
+	 * Easily get a Friend object from his username
+	 * @param username
+	 */
+	public Friend getFriend(String username) {
+		for (Friend f : getFriends()) {
+			if (username.equals(f.getUsername()))
+				return f;
+		}
+		return null;
+	}
+	
+    
     /**
      * Fetch latest version of full loginObj from Snapchat Server.
      * @return true if the update is successful, otherwise false.
