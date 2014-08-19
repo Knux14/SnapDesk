@@ -97,7 +97,6 @@ class ThreadDownloadStory extends Thread {
             File folder = new File(Resources.getHomeDir(), "download");
             folder.mkdirs();
             File storyFile = new File(folder, s.getSender() + "-" + s.getId() + extension);
-            System.out.println(storyFile.getAbsolutePath());
             try {
                 FileOutputStream storyOs = new FileOutputStream(storyFile);
 				storyOs.write(storyBytes);
