@@ -192,7 +192,7 @@ public class MainFrame extends JFrame {
 		// Show the popup
 		int x;
 		if ((x = Snap.filterDownloadable(scAccount.getSnaps()).length) != 0) {
-			System.out.println(x);
+			new Popup(x + " " + Resources.text.getString("Popup.newMessage"));
 		}
 	}
 }
