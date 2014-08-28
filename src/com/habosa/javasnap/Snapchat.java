@@ -427,6 +427,19 @@ public class Snapchat {
     }
 
     /**
+     * Make a change to a snap/story, eg mark it as viewed or screenshot or seen.
+     *
+     * @param snap the snap object we are interacting with
+     * @param seen boolean stating if we have seen this snap or not.
+     * @param screenshot boolean stating if we have screenshot this snap or not.
+     * @param replayed integer stating how many times we have replayed this snap.
+     * @return true if successful, false otherwise.
+     */
+    public boolean setSnapFlags(Story snap, boolean seen, boolean screenshot, boolean replayed){
+        return updateSnap(snap, seen, screenshot, replayed);
+    }
+
+    /**
      * Tell your recipient that you are typing a chat message.
      *
      * @param recipient username to tell.
@@ -751,6 +764,55 @@ public class Snapchat {
      * @return true if successful, false otherwise.
      */
     private boolean updateSnap(Snap snap, boolean seen, boolean screenshot, boolean replayed) {
+        try {
+            // Prepare parameters
+            Long timestamp = getTimestamp();
+            String requestToken = TokenLib.requestToken(getAuthToken(), timestamp);
+
+            int statusInt = 0;
+            int replayedInt = 0;
+
+            if(seen){
+                statusInt = 0;
+            }
+            else if(screenshot){
+                statusInt = 1;
+            }
+
+            if(replayed){
+                replayedInt = 1;
+            }
+
+            String jsonString = "{\"" + snap.getId() + "\":{\"c\":" + statusInt + ",\"t\":" + timestamp + ",\"replayed\":" + replayedInt + "}}";
+
+            String eventsString = "[]";
+
+            // Make parameter map
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put(USERNAME_KEY, username);
+            params.put(TIMESTAMP_KEY, timestamp.toString());
+            params.put(REQ_TOKEN_KEY, requestToken);
+            params.put(ADDED_FRIENDS_TIMESTAMP_KEY, friendsTimestamp);
+            params.put(JSON_KEY, jsonString);
+            params.put(EVENTS_KEY, eventsString);
+            //params.put(TIME_KEY, Integer.toString(snapTime));
+
+            // Sending path
+            String path = UPDATE_SNAPS_PATH;
+
+            // Execute request
+            HttpResponse<String> resp = requestString(path, params, null);
+            if (resp.getCode() == 200 || resp.getCode() == 202) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (UnirestException e) {
+            return false;
+        }
+    }
+    
+    private boolean updateSnap(Story snap, boolean seen, boolean screenshot, boolean replayed) {
         try {
             // Prepare parameters
             Long timestamp = getTimestamp();

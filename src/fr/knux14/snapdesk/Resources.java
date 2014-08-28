@@ -41,4 +41,8 @@ public class Resources {
 		return home;
 	}
 	
+	public static File getDownloadDir() {
+		return new File(getHomeDir(), "download");
+	}
+	
 }

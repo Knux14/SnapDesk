@@ -26,7 +26,6 @@ public class Downloader extends JFrame {
 	Snap[] dlListSnap;
 	int totalFiles = 0;
 	int currFile = 0;
-	File[] downloadedFiles;
 	
 	// Gui Stuff
 	JProgressBar progress;
@@ -38,7 +37,6 @@ public class Downloader extends JFrame {
         totalFiles = dlListStory.length;
 		label = new JLabel(Resources.text.getString("Downloader.text1") + " " + dlListStory[0].getSender() + Resources.text.getString("Downloader.text2"), JLabel.LEFT);
 		setup();
-		downloadedFiles = new File[totalFiles];
 		setVisible(true);
 		ThreadDownloadStory tds = new ThreadDownloadStory(this);
 		tds.start();
@@ -94,9 +92,7 @@ class ThreadDownloadStory extends Thread {
               extension = ".mp4";
             }
             byte[] storyBytes = Snapchat.getStory(s); 
-            File folder = new File(Resources.getHomeDir(), "download");
-            folder.mkdirs();
-            File storyFile = new File(folder, s.getSender() + "-" + s.getId() + extension);
+            File storyFile = new File(Resources.getDownloadDir(), s.getSender() + "-" + s.getId() + extension);
             try {
                 FileOutputStream storyOs = new FileOutputStream(storyFile);
 				storyOs.write(storyBytes);
@@ -104,12 +100,11 @@ class ThreadDownloadStory extends Thread {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-            dl.downloadedFiles[dl.currFile] = storyFile;
             dl.currFile++;
             dl.progress.setValue(dl.currFile);
 		}
 		dl.setVisible(false);
-		Viewer v = new Viewer(dl.downloadedFiles);
+		Viewer v = new Viewer(dl.dlListStory);
 		v.setVisible(true);
 	}
 	
@@ -132,9 +127,7 @@ class ThreadDownloadSnap extends Thread {
               extension = ".mp4";
             }
             byte[] storyBytes = MainFrame.instance.scAccount.getSnap(s); 
-            File folder = new File(Resources.getHomeDir(), "download");
-            folder.mkdirs();
-            File storyFile = new File(folder, s.getSender() + "-" + s.getId() + extension);
+            File storyFile = new File(Resources.getDownloadDir(), s.getSender() + "-" + s.getId() + extension);
             System.out.println(storyFile.getAbsolutePath());
             try {
                 FileOutputStream storyOs = new FileOutputStream(storyFile);
@@ -143,13 +136,12 @@ class ThreadDownloadSnap extends Thread {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-            dl.downloadedFiles[dl.currFile] = storyFile;
             dl.currFile++;
             dl.progress.setValue(dl.currFile);
             MainFrame.instance.scAccount.setSnapFlags(s, true, false, false);
 		}
 		dl.setVisible(false);
-		Viewer v = new Viewer(dl.downloadedFiles);
+		Viewer v = new Viewer(dl.dlListSnap);
 		v.setVisible(true);
 	}
 	

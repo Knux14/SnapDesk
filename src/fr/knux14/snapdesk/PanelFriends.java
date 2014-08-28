@@ -41,7 +41,8 @@ public class PanelFriends extends JPanel {
 					friends[lastSelected].isSelected = false;
 					friends[lastSelected].repaint();
 				}
-				friendList.getSelectedValue().isSelected = true;
+				if(friendList.getSelectedValue() != null)
+					friendList.getSelectedValue().isSelected = true;
 				lastSelected = friendList.getSelectedIndex();
 			}
 		});
