@@ -32,7 +32,13 @@ public class Viewer extends JFrame {
 		this();
 		type = 1;
 		this.total = snaps.length;
-		this.snaps = snaps;
+		Snap str[] = new Snap[snaps.length];
+		int x = snaps.length-1;
+		for (Snap s : snaps) {
+			str[x] = s;
+			x--;
+		}
+		this.snaps = str;
 		goToNext();
 	}
 	
@@ -40,7 +46,13 @@ public class Viewer extends JFrame {
 		this();
 		type = 2;
 		this.total = stories.length;
-		this.stories = stories;
+		Story str[] = new Story[stories.length];
+		int x = stories.length-1;
+		for (Story s : stories) {
+			str[x] = s;
+			x--;
+		}
+		this.stories = str;
 		goToNext();
 	}
 	
@@ -84,7 +96,6 @@ class PicturePanel extends JPanel {
 	protected Dimension bgSize;
 	protected BufferedImage background;
 	public int time = 0;
-	int ratio = 0;
 	
 	public PicturePanel(Viewer v, BufferedImage image, int seconds) {
 		this.view = v;
@@ -93,19 +104,20 @@ class PicturePanel extends JPanel {
 		setBackground(Color.black);
 		setMinimumSize(bgSize);
 		
-		ratio = image.getWidth() / image.getHeight();
-		
 		new ThreadTimer(this, v, seconds).start();
 	}
 	
 	public void paintComponent(Graphics g) {
-		int posY = 0, h = getHeight(), w = h * ratio, posX = getWidth() / 2 - w / 2;
+		float newHeight = getHeight();
+		float oldWidth  = background.getWidth();
+		float oldHeight = background.getHeight();
+		float newWidth  = (newHeight * oldWidth) / oldHeight;
 		g.setColor(Color.black);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		g.drawImage(background, posX, posY, w, h, null);
+		g.drawImage(background, (int)(getWidth() / 2 - newWidth/2), (int)0, (int)newWidth, (int)newHeight, null);
 		g.setColor(Color.white);
 		g.setFont(g.getFont().deriveFont(15f));
-		g.drawString(time + " - " + view.last+1 + "/" + view.total, 20, 20);
+		g.drawString(time + " - " + (int)(view.last+1) + "/" + view.total, 20, 20);
 	}
 }
 
