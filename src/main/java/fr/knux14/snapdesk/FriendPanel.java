@@ -33,7 +33,7 @@ public class FriendPanel extends JPanel implements ListCellRenderer<FriendPanel>
 		setMinimumSize(dim);
 		setPreferredSize(dim);
 		setSize(dim);
-		stories = new ArrayList<>();
+		stories = new ArrayList<Story>();
 	}
 	
 	// So that we can make the list renderer as is w/out actually using a friend

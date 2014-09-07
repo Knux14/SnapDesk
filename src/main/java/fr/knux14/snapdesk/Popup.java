@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 public class Popup extends JDialog {
 	
 	private static final long serialVersionUID = 1L;
-	public static ArrayList<Popup> popupList = new ArrayList<>();
+	public static ArrayList<Popup> popupList = new ArrayList<Popup>();
 	public static Dimension screen;
 	
 	public Popup(String message) {

@@ -47,7 +47,7 @@ class MainLoginPanel extends JPanel {
 
 	public MainLoginPanel(final JFrame loginFrame) {
 		this.loginFrame = loginFrame;
-		userList = new JList<>();
+		userList = new JList<String>();
 		connect = new JButton(Resources.text.getString("Login.button.connect"));
 		add = new JButton(Resources.text.getString("Login.button.add"));
 		rem = new JButton(Resources.text.getString("Login.button.remove"));

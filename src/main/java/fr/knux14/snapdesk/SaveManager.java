@@ -11,7 +11,7 @@ import java.util.Map.Entry;
 
 public class SaveManager {
 
-	public static HashMap<String, String> userList = new HashMap<>();
+	public static HashMap<String, String> userList = new HashMap<String, String>();
 
 	// Where will be saved the username and the tokens
 	private static final File usernameFile = new File(Resources.getHomeDir(), "lastlogin");

@@ -94,6 +94,8 @@ class ThreadDownloadStory extends Thread {
             byte[] storyBytes = Snapchat.getStory(s); 
             File storyFile = new File(Resources.getDownloadDir(), s.getSender() + "-" + s.getId() + extension);
             try {
+                storyFile.getParentFile().mkdirs();
+                storyFile.createNewFile();
                 FileOutputStream storyOs = new FileOutputStream(storyFile);
 				storyOs.write(storyBytes);
 	            storyOs.close();

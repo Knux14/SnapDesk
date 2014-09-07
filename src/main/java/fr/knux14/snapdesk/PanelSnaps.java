@@ -27,7 +27,7 @@ public class PanelSnaps extends JPanel {
 	
 	public PanelSnaps(final MainFrame mf) {
 		this.mf = mf;
-		snapList = new JList<>();
+		snapList = new JList<SnapPanel>();
 		/* Just in case that PanelFriend wasn't loaded*/
 		Resources.selectedColorBg = snapList.getSelectionBackground();
 		Resources.selectedColorFg = snapList.getSelectionForeground();
@@ -95,7 +95,7 @@ public class PanelSnaps extends JPanel {
 	 */
 	public void updateSnapPanelList() {
 		Snap[] snapList = mf.scAccount.getSnaps();
-		ArrayList<SnapPanel> snapListTemp = new ArrayList<>();
+		ArrayList<SnapPanel> snapListTemp = new ArrayList<SnapPanel>();
 		for (int x = 0; x < snapList.length; x++) {
 			Snap s = snapList[x];
 			if (s.getSender() != null) {
@@ -111,7 +111,7 @@ public class PanelSnaps extends JPanel {
 	 * Apply the array to the JList
 	 */
 	public void updateList() {
-		DefaultListModel<SnapPanel> model = new DefaultListModel<>();
+		DefaultListModel<SnapPanel> model = new DefaultListModel<SnapPanel>();
 		for (SnapPanel sp : snaps) {
 			model.addElement(sp);
 		}

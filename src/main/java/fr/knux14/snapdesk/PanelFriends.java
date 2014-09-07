@@ -28,7 +28,7 @@ public class PanelFriends extends JPanel {
 	
 	public PanelFriends(final MainFrame mf) {
 		this.mf = mf;
-		friendList = new JList<>();
+		friendList = new JList<FriendPanel>();
 		Resources.selectedColorBg = friendList.getSelectionBackground();
 		Resources.selectedColorFg = friendList.getSelectionForeground();
 		Resources.unselectedColorBg = friendList.getBackground();
@@ -106,7 +106,7 @@ public class PanelFriends extends JPanel {
 	 * Apply the array to the JList
 	 */
 	public void updateList() {
-		DefaultListModel<FriendPanel> model = new DefaultListModel<>();
+		DefaultListModel<FriendPanel> model = new DefaultListModel<FriendPanel>();
 		for (FriendPanel fp : friends) {
 			model.addElement(fp);
 		}
