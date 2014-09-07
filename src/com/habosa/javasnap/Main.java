@@ -10,7 +10,8 @@ public class Main {
     private static Snapchat snapchat;
     
     public static void main(String[] args) throws Exception {
-        // Get username and password
+          	
+    	// Get username and password
         Scanner scanner = new Scanner(System.in);
         System.out.println("Snapchat username: ");
         String username = scanner.nextLine();
