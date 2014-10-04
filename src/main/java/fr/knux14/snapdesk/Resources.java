@@ -1,13 +1,11 @@
 package fr.knux14.snapdesk;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.ResourceBundle;
-
-import javax.imageio.ImageIO;
 
 public class Resources {
 
@@ -18,20 +16,17 @@ public class Resources {
 	public static final String programName  = "jSnapDesk",
 							   programVers  = "InDev 0.1",
 							   programFName = programName + " " + programVers;
-	
+
+    private static File configFile = new File(getHomeDir(), "config.properties");
 	public static BufferedImage loading, refresh;
 	public static Color selectedColorBg, selectedColorFg, unselectedColorBg, unselectedColorFg;
 	public static ResourceBundle text;
-	
+	public static Properties props;
+
 	public static void load() {
-		try {
-			Locale langue = new Locale("en", "US");
+			Locale langue = new Locale(props.getProperty("LanguageCode", "en"), props.getProperty("CountryCode", "US"));
 			text = ResourceBundle.getBundle("TranslateDesk", langue);
-			loading = ImageIO.read(Resources.class.getResourceAsStream("res/loading.gif"));
-			refresh = ImageIO.read(Resources.class.getResourceAsStream("res/refresh.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+            saveConfig();
 	}
 	
 	public static File getHomeDir() {
@@ -40,7 +35,39 @@ public class Resources {
 		if(!home.exists()) home.mkdirs();
 		return home;
 	}
-	
+
+    public static void loadConfig() {
+        try {
+            props = new Properties();
+            props.load(new FileInputStream(configFile));
+        } catch (IOException e) {
+            props = new Properties();
+            props.put("LanguageCode", "en");
+            props.put("CountryCode", "US");
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveConfig() {
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(configFile);
+            props.store(fos, null);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 	public static File getDownloadDir() {
 		return new File(getHomeDir(), "download");
 	}

@@ -5,6 +5,9 @@ apply plugin: 'eclipse'
 sourceCompatibility = 1.6
 version = '1.0'
 
+apply plugin:'application'
+mainClassName = "fr.knux14.snapdesk.Main"
+
 repositories {
     mavenCentral()
 }

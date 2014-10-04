@@ -175,7 +175,7 @@ public class Snapchat {
      * Log in to Snapchat.
      *
      * @param pseudo
-     * @param token utilisé
+     * @param token utilis(e accent)
      * @return Snapchat object
      */
     public static Snapchat loginByToken(String username, String token) {

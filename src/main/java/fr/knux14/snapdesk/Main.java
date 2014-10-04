@@ -10,6 +10,7 @@ public class Main {
 	 */
 	public static void main(String args[]) {
         SecurityUtil.removeCryptographyRestrictions();
+        Resources.loadConfig();
 		Resources.load();
 		SaveManager.loadUsernames();
 		try {

@@ -87,6 +87,7 @@ class ThreadDownloadStory extends Thread {
 	@Override
 	public void run() {
 		for (Story s : dl.dlListStory) {
+            System.out.println(s.getTime());
 			String extension = ".jpg";
             if(!s.isImage()){
               extension = ".mp4";
